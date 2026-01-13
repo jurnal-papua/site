@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papua News - Portal Berita Papua Terkini</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #1a3a1a, #2d5a2d);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: #ffcc00;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #ffcc00;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-color: #e8f5e8;
+            padding: 40px 0;
+            border-bottom: 3px solid #2d5a2d;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-text h2 {
+            color: #1a3a1a;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 20px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* News Section */
+        .news-section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #2d5a2d;
+        }
+        
+        .section-title h2 {
+            color: #1a3a1a;
+            font-size: 1.8rem;
+        }
+        
+        .section-title span {
+            background-color: #2d5a2d;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .news-image {
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
+        }
+        
+        .news-content {
+            padding: 25px;
+        }
+        
+        .news-category {
+            display: inline-block;
+            background-color: #e8f5e8;
+            color: #2d5a2d;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .news-category.viral {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .news-category.politik {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .news-category.budaya {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .news-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #1a3a1a;
+        }
+        
+        .news-excerpt {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.85rem;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Trending News */
+        .trending-news {
+            background-color: #f0f9f0;
+            padding: 60px 0;
+        }
+        
+        .trending-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+        
+        .trending-main {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .trending-main .news-image {
+            height: 350px;
+        }
+        
+        .trending-side {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .side-news {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .side-news img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .side-news-content {
+            padding: 15px;
+            flex: 1;
+        }
+        
+        .side-news-content h4 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #1a3a1a;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a3a1a;
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #ffcc00;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #ffcc00;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: #2d5a2d;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: #ffcc00;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #2d5a2d;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .trending-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-newspaper"></i>
+                <div>
+                    <h1>Papua News</h1>
+                    <p>Portal Berita Papua Terkini dan Terpercaya</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Beranda</a></li>
+                    <li><a href="#"><i class="fas fa-fire"></i> Viral</a></li>
+                    <li><a href="#"><i class="fas fa-map-marked-alt"></i> Daerah</a></li>
+                    <li><a href="#"><i class="fas fa-video"></i> Video</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> Tentang</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h2>Informasi Terkini dari Bumi Cenderawasih</h2>
+                <p>Portal berita terpercaya yang menyajikan informasi aktual seputar Papua. Dapatkan berita viral, politik, budaya, dan pembangunan terkini dari seluruh wilayah Papua dan Papua Barat.</p>
+                <a href="#" style="background-color: #2d5a2d; color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: 600; display: inline-block;">Selengkapnya</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1588666309990-d68f08e3d4c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Pemandangan Papua">
+            </div>
+        </div>
+    </section>
+
+    <!-- Berita Viral Section -->
+    <section class="news-section">
+        <div class="container">
+            <div class="section-title">
+                <h2><i class="fas fa-fire"></i> Berita Viral Papua</h2>
+                <span>Update Terbaru</span>
+            </div>
+            
+            <div class="news-grid">
+                <!-- Berita 1 -->
+                <article class="news-card">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1543413069-2c5b7f0b6c5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Festival Budaya Papua">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category viral">Viral</span>
+                        <h3 class="news-title">Festival Lembah Baliem 2024 Jadi Sorotan, Ribuan Wisatawan Hadir</h3>
+                        <p class="news-excerpt">Festival Lembah Baliem 2024 berhasil menyedot perhatian publik dengan keunikan perang simulasi suku-suku Papua. Acara yang digelar di Wamena ini dihadiri ribuan wisatawan domestik dan mancanegara.</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> 15 Juni 2024</span>
+                            <span><i class="far fa-eye"></i> 125.4k dilihat</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Berita 2 -->
+                <article class="news-card">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Penemuan Spesies Baru">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category viral">Viral</span>
+                        <h3 class="news-title">Spesies Katak Baru Ditemukan di Hutan Pegunungan Papua</h3>
+                        <p class="news-excerpt">Para peneliti berhasil mengidentifikasi spesies katak baru yang ditemukan di kawasan hutan pegunungan Papua. Katak dengan warna mencolok ini langsung menjadi viral di media sosial.</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> 12 Juni 2024</span>
+                            <span><i class="far fa-eye"></i> 98.7k dilihat</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Berita 3 -->
+                <article class="news-card">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Atlet Papua">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category viral">Viral</span>
+                        <h3 class="news-title">Atlet Papua Raih Medali Emas di Kejuaraan Atletik Asia</h3>
+                        <p class="news-excerpt">Atlet asal Papua, Steven Mayson, berhasil meraih medali emas dalam kejuaraan atletik Asia 2024. Prestasi ini menjadi kebanggaan dan inspirasi bagi generasi muda Papua.</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> 10 Juni 2024</span>
+                            <span><i class="far fa-eye"></i> 87.2k dilihat</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending News Section -->
+    <section class="trending-news">
+        <div class="container">
+            <div class="section-title">
+                <h2><i class="fas fa-chart-line"></i> Trending di Papua</h2>
+                <span>Populer Minggu Ini</span>
+            </div>
+            
+            <div class="trending-container">
+                <div class="trending-main">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Pembangunan Infrastruktur Papua">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category politik">Politik & Pembangunan</span>
+                        <h3 class="news-title">Pemerintah Resmikan Jalan Trans Papua Segmen Baru Sepanjang 150 KM</h3>
+                        <p class="news-excerpt">Presiden Joko Widodo meresmikan jalan Trans Papua segmen baru sepanjang 150 KM yang menghubungkan Wamena dan Dekai. Pembangunan infrastruktur ini diharapkan dapat mempercepat pertumbuhan ekonomi di wilayah pedalaman Papua.</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> 14 Juni 2024</span>
+                            <span><i class="far fa-eye"></i> 210.5k dilihat</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="trending-side">
+                    <div class="side-news">
+                        <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Kuliner Papua">
+                        <div class="side-news-content">
+                            <span class="news-category budaya" style="font-size: 0.7rem;">Budaya</span>
+                            <h4>Papeda dan Ikan Kuah Kuning Masuk Daftar Makanan Terenak Dunia</h4>
+                            <div class="news-meta">
+                                <span><i class="far fa-eye"></i> 76.3k</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="side-news">
+                        <img src="https://images.unsplash.com/photo-1558904541-efa843a96d27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Pendidikan Papua">
+                        <div class="side-news-content">
+                            <span class="news-category" style="background-color: #d4edda; color: #155724; font-size: 0.7rem;">Pendidikan</span>
+                            <h4>Universitas Cenderawasih Masuk 10 Besar Kampus Terbaik di Indonesia Timur</h4>
+                            <div class="news-meta">
+                                <span><i class="far fa-eye"></i> 54.1k</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="side-news">
+                        <img src="https://images.unsplash.com/photo-1544551763-77efc0c4a87e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Lingkungan Papua">
+                        <div class="side-news-content">
+                            <span class="news-category" style="background-color: #cce5ff; color: #004085; font-size: 0.7rem;">Lingkungan</span>
+                            <h4>Komitmen Masyarakat Adat Papua dalam Menjaga Hutan Primer</h4>
+                            <div class="news-meta">
+                                <span><i class="far fa-eye"></i> 42.8k</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Papua News</h3>
+                    <p>Portal berita terpercaya yang menyajikan informasi terkini seputar Papua. Menjadi sumber informasi yang akurat, aktual, dan terpercaya untuk masyarakat Papua dan seluruh Indonesia.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kategori Berita</h3>
+                    <ul>
+                        <li><a href="#">Berita Viral</a></li>
+                        <li><a href="#">Politik & Hukum</a></li>
+                        <li><a href="#">Budaya & Tradisi</a></li>
+                        <li><a href="#">Pembangunan & Infrastruktur</a></li>
+                        <li><a href="#">Lingkungan & Alam</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Wilayah</h3>
+                    <ul>
+                        <li><a href="#">Jayapura</a></li>
+                        <li><a href="#">Merauke</a></li>
+                        <li><a href="#">Biak</a></li>
+                        <li><a href="#">Manokwari</a></li>
+                        <li><a href="#">Wamena</a></li>
+                        <li><a href="#">Sorong</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kontak Kami</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Jl. Cenderawasih No. 123, Jayapura</li>
+                        <li><i class="fas fa-phone"></i> (0967) 531-2345</li>
+                        <li><i class="fas fa-envelope"></i> redaksi@papuanews.id</li>
+                        <li><i class="fas fa-clock"></i> Senin - Jumat: 08:00 - 17:00 WIT</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Papua News. All rights reserved. | Dibuat dengan <i class="fas fa-heart" style="color: #ffcc00;"></i> untuk kemajuan Papua</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tambahkan efek smooth scroll untuk navigasi
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId !== '#') {
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animasi sederhana saat card berita di-hover
+        document.querySelectorAll('.news-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transition = 'transform 0.3s, box-shadow 0.3s';
+            });
+        });
+        
+        // Update tanggal berita secara dinamis
+        const newsDates = document.querySelectorAll('.news-meta span:first-child');
+        const today = new Date();
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        
+        // Set tanggal untuk berita utama (3 hari terakhir)
+        const dates = [
+            new Date(today),
+            new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000),
+            new Date(today.getTime() - 2 * 24 * 60 * 60 * 1000),
+            new Date(today.getTime() - 4 * 24 * 60 * 60 * 1000),
+            new Date(today.getTime() - 5 * 24 * 60 * 60 * 1000)
+        ];
+        
+        newsDates.forEach((dateElem, index) => {
+            if(index < dates.length) {
+                dateElem.innerHTML = `<i class="far fa-calendar"></i> ${dates[index].toLocaleDateString('id-ID', options)}`;
+            }
+        });
+    </script>
+</body>
+</html>
